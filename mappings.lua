@@ -14,13 +14,15 @@ M.spectre = {
     ["<leader>sw"] = {
       function ()
         require("spectre").open_visual({select_word=true})
-      end
+      end,
+      "search current word"
     },
 
     ["<leader>sp"] = {
       function ()
         require("spectre").open_file_search()
-      end
+      end,
+      "open search"
     }
   }
 }
