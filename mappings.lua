@@ -27,4 +27,15 @@ M.spectre = {
   }
 }
 
+M.osc52 = {
+  plugin = true,
+
+  x = {
+    ["<leader>by"] = {
+        'require("osc52").copy_visual', "copy select section"
+    }
+
+  }
+}
+
 return M

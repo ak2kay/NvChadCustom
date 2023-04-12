@@ -58,6 +58,9 @@ local plugins = {
 
   -- Search && replace tool in global scope
   { import = "custom.configs.extras.spectre" },
+
+  -- yank through ssh
+  -- { import = "custom.configs.extras.osc52" },
 }
 
 return plugins
