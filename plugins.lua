@@ -54,7 +54,10 @@ local plugins = {
   -- },
 
   -- Use a extras plugin
-  { import = "custom.configs.extras.mason-extras" }
+  { import = "custom.configs.extras.mason-extras" },
+
+  -- Search && replace tool in global scope
+  { import = "custom.configs.extras.spectre" },
 }
 
 return plugins
