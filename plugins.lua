@@ -139,6 +139,9 @@ local plugins = {
 
   -- yank through ssh
   { import = "custom.configs.extras.osc52" },
+
+  -- generate shareable file link of git repo
+  { import = "custom.configs.extras.gitlinker" },
 }
 
 return plugins
