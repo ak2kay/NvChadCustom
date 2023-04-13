@@ -65,8 +65,14 @@ local spec = {
   "neovim/nvim-lspconfig",
   -- BufRead is to make sure if you do nvim some_file then this is still going to be loaded
   event = { "VeryLazy", "BufRead" },
-  config = function() end, -- Override to make sure load order is correct
   dependencies = {
+      -- format & linting
+      {
+        "jose-elias-alvarez/null-ls.nvim",
+        config = function()
+          require "custom.configs.null-ls"
+        end,
+      },
     {
       "williamboman/mason.nvim",
       config = function(plugin, opts)
