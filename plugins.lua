@@ -57,7 +57,7 @@ local plugins = {
   { import = "custom.configs.extras.mason-extras" },
 
   -- Search && replace tool in global scope
-  { import = "custom.configs.extras.spectre" },
+  { import = "custom.configs.extras.ctrlsf" },
 
   -- yank through ssh
   { import = "custom.configs.extras.osc52" },
