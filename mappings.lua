@@ -31,11 +31,13 @@ M.osc52 = {
   plugin = true,
 
   x = {
-    ["<leader>by"] = {
-        'require("osc52").copy_visual', "copy select section"
-    }
-
-  }
+    ["<leader>c"] = {
+      function()
+        require("osc52").copy_visual()
+      end,
+      "copy select section",
+    },
+  },
 }
 
 return M

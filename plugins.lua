@@ -60,7 +60,7 @@ local plugins = {
   { import = "custom.configs.extras.spectre" },
 
   -- yank through ssh
-  -- { import = "custom.configs.extras.osc52" },
+  { import = "custom.configs.extras.osc52" },
 }
 
 return plugins
