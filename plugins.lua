@@ -142,6 +142,12 @@ local plugins = {
 
   -- generate shareable file link of git repo
   { import = "custom.configs.extras.gitlinker" },
+
+  -- lsp glance
+  { import = "custom.configs.extras.glance" },
+
+  -- lsp preview
+  { import = "custom.configs.extras.goto-preview" },
 }
 
 return plugins
