@@ -17,6 +17,13 @@ local sources = {
 
   -- cpp
   b.formatting.clang_format,
+
+  -- go
+  b.formatting.gofumpt, -- Enforce a stricter format than gofmt, while being backwards compatible. That is, gofumpt is happy with a subset of the formats that gofmt is happy with.
+  b.formatting.goimports, -- Updates your Go import lines, adding missing ones and removing unreferenced ones.
+
+  -- json
+  b.formatting.fixjson,
 }
 
 null_ls.setup {
