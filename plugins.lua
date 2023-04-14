@@ -26,6 +26,8 @@ local plugins = {
     },
 
     opts = function()
+      local utils = require "custom.utils"
+      local base_options = require "plugins.configs.cmp"
       local cmp = require "cmp"
 
       local has_words_before = function()
@@ -56,9 +58,9 @@ local plugins = {
             "s",
           }),
         },
-        sources = {
+        sources = utils.merge_table_simple({
           { name = "copilot", group_index = 2 },
-        },
+        }, base_options.sources),
         sorting = {
           priority_weight = 2,
           comparators = {
@@ -78,6 +80,8 @@ local plugins = {
           },
         },
       }
+
+      opts = vim.tbl_deep_extend("force", base_options, opts)
       return opts
     end,
   },
