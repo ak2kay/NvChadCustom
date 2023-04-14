@@ -130,6 +130,9 @@ local plugins = {
 
   -- lsp preview
   { import = "custom.configs.extras.goto-preview" },
+
+  -- vim-fugitive
+  { import = "custom.configs.extras.fugitive" },
 }
 
 return plugins
