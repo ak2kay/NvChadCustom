@@ -42,7 +42,7 @@ M.mason = {
     -- go stuff
     "gopls",
     "gofumpt",
-    "goimports"
+    "goimports",
   },
 }
 
