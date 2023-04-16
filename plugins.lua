@@ -117,7 +117,13 @@ local plugins = {
   --   enabled = false
   -- },
 
-  -- Use a extras plugin
+  -- markdown preview
+  { "ellisonleao/glow.nvim", config = true, cmd = { "Glow", "GlowInstall" } },
+
+  -- markdown format
+  { "hotoo/pangu.vim", ft = { "markdown" } },
+
+  -- lsp-extra config
   { import = "custom.configs.extras.lsp-extras" },
 
   -- Search && replace tool in global scope
