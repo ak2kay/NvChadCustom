@@ -4,6 +4,7 @@ local M = {}
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
+    ["ggg"] = { "gg", "go to first line", opts = { nowait = true } },
   },
 }
 
