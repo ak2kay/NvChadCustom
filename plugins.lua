@@ -123,6 +123,14 @@ local plugins = {
   -- markdown format
   { "hotoo/pangu.vim", ft = { "markdown" } },
 
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    config = function()
+      require "custom.configs.extras.zenmode"
+    end,
+  },
+
   -- lsp-extra config
   { import = "custom.configs.extras.lsp-extras" },
 
