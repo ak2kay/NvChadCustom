@@ -49,6 +49,12 @@ local plugins = {
     end,
   },
 
+  {
+    "github/copilot.vim",
+    event = { "BufRead" },
+    cmd = { "Copilot" },
+  },
+
   -- override plugin configs
   {
     "williamboman/mason.nvim",
