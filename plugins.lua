@@ -16,8 +16,8 @@ local plugins = {
             "zbirenbaum/copilot.lua",
             cmd = "Copilot",
             opts = {
-              suggestion = { enabled = true },
-              panel = { enabled = true },
+              suggestion = { enabled = false },
+              panel = { enabled = false },
             },
           },
         },
@@ -86,6 +86,15 @@ local plugins = {
     end,
   },
 
+  {
+    "folke/trouble.nvim",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    cmd = { "TroubleToggle", "Trouble" },
+    config = function()
+      require("trouble").setup { _diagnostic_signs = true }
+    end,
+  },
+
   -- override plugin configs
   {
     "williamboman/mason.nvim",
@@ -102,6 +111,11 @@ local plugins = {
     opts = overrides.nvimtree,
   },
 
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = overrides.telescope,
+  },
+
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
@@ -109,6 +123,21 @@ local plugins = {
     config = function()
       require("better_escape").setup()
     end,
+  },
+
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 
   -- To make a plugin not be loaded
