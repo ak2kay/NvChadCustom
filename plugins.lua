@@ -6,27 +6,7 @@ local plugins = {
   -- Override plugin definition options
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      {
-        -- copilot cmp source
-        "zbirenbaum/copilot-cmp",
-        dependencies = {
-          {
-            -- fully featured & enhanced replacement for copilot.vim
-            "zbirenbaum/copilot.lua",
-            cmd = "Copilot",
-            opts = {
-              suggestion = { enabled = false },
-              panel = { enabled = false },
-            },
-          },
-        },
-        config = true,
-      },
-    },
-
     opts = function()
-      local utils = require "custom.utils"
       local base_options = require "plugins.configs.cmp"
       local cmp = require "cmp"
 
@@ -40,11 +20,6 @@ local plugins = {
 
       local opts = {
         mapping = {
-          ["<CR>"] = cmp.mapping.confirm {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = false,
-          },
-
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() and has_words_before() then
               cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
@@ -57,27 +32,6 @@ local plugins = {
             "i",
             "s",
           }),
-        },
-        sources = utils.merge_table_simple({
-          { name = "copilot", group_index = 2 },
-        }, base_options.sources),
-        sorting = {
-          priority_weight = 2,
-          comparators = {
-            require("copilot_cmp.comparators").prioritize,
-
-            -- Below is the default comparitor list and order for nvim-cmp
-            cmp.config.compare.offset,
-            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            cmp.config.compare.recently_used,
-            cmp.config.compare.locality,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
-          },
         },
       }
 
