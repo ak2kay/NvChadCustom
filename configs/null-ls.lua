@@ -24,6 +24,9 @@ local sources = {
 
   -- json
   b.formatting.fixjson,
+
+  -- yaml
+  b.formatting.yamlfmt
 }
 
 null_ls.setup {
