@@ -74,7 +74,14 @@ M.copilot = {
   plugin = true,
 
   i = {
-    ["<c-y>"] = { 'copilot#Accept("<CR>")', "accept copilot suggestion", { expr = true } },
+    -- we use <c-y> to accept copilot suggestion
+    -- and the reason we add `replace_keycodes = false` is that
+    -- if we don't do this, random keycodes will be inserted, see [community discussion 29817](https://github.com/orgs/community/discussions/29817#discussioncomment-4217615) for details.
+    ["<c-y>"] = {
+      'copilot#Accept("<CR>")',
+      "accept copilot suggestion",
+      opts = { expr = true, silent = true, script = true, replace_keycodes = false },
+    },
   },
 }
 
