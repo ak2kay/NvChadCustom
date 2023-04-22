@@ -70,4 +70,12 @@ M.gotopreview = {
   },
 }
 
+M.copilot = {
+  plugin = true,
+
+  i = {
+    ["<c-y>"] = { 'copilot#Accept("<CR>")', "accept copilot suggestion", { expr = true } },
+  },
+}
+
 return M
