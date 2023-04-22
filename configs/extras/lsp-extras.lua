@@ -72,6 +72,25 @@ local setup = function(_, opts)
       }
     end,
   }
+
+  require("null-ls").setup {}
+  require("mason-null-ls").setup {
+    ensure_installed = {
+      "stylua",
+      "clang_format",
+      "gofumpt",
+      "goimports",
+      "fixjson",
+      "yamlfmt",
+      "prettier",
+    },
+    automatic_setup = true,
+    handlers = {
+      prettier = function()
+        local null_ls = require "null-ls"
+        null_ls.register(null_ls.builtins.formatting.prettier.with { filetypes = { "html", "markdown", "css" } })
+      end,
+    },
   }
 end
 
@@ -95,7 +114,7 @@ local spec = {
       end,
     },
     "williamboman/mason-lspconfig",
-    -- TODO: Add mason-null-ls? mason-dap?
+    "jay-babu/mason-null-ls.nvim",
   },
 }
 
