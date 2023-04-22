@@ -136,30 +136,30 @@ local plugins = {
     "folke/zen-mode.nvim",
     cmd = "ZenMode",
     config = function()
-      require "custom.configs.extras.zenmode"
+      require "custom.configs.zenmode"
     end,
   },
 
   -- lsp-extra config
-  { import = "custom.configs.extras.lsp-extras" },
+  { import = "custom.configs.lspconfig" },
 
   -- Search && replace tool in global scope
-  { import = "custom.configs.extras.ctrlsf" },
+  { import = "custom.configs.ctrlsf" },
 
   -- yank through ssh
-  { import = "custom.configs.extras.osc52" },
+  { import = "custom.configs.osc52" },
 
   -- generate shareable file link of git repo
-  { import = "custom.configs.extras.gitlinker" },
+  { import = "custom.configs.gitlinker" },
 
   -- lsp glance
-  { import = "custom.configs.extras.glance" },
+  { import = "custom.configs.glance" },
 
   -- lsp preview
-  { import = "custom.configs.extras.goto-preview" },
+  { import = "custom.configs.goto-preview" },
 
   -- vim-fugitive
-  { import = "custom.configs.extras.fugitive" },
+  { import = "custom.configs.fugitive" },
 }
 
 return plugins

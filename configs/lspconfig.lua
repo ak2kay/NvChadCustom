@@ -82,6 +82,7 @@ local setup = function(_, opts)
       "goimports",
       "fixjson",
       "yamlfmt",
+      "deno_fmt", -- choosed deno for ts/js files cuz it's very fast
       "prettier",
     },
     automatic_setup = true,
@@ -100,13 +101,6 @@ local spec = {
   -- BufRead is to make sure if you do nvim some_file then this is still going to be loaded
   event = { "VeryLazy", "BufRead" },
   dependencies = {
-    -- format & linting
-    {
-      "jose-elias-alvarez/null-ls.nvim",
-      config = function()
-        require "custom.configs.null-ls"
-      end,
-    },
     {
       "williamboman/mason.nvim",
       config = function(plugin, opts)
@@ -114,6 +108,7 @@ local spec = {
       end,
     },
     "williamboman/mason-lspconfig",
+    "jose-elias-alvarez/null-ls.nvim",
     "jay-babu/mason-null-ls.nvim",
   },
 }
