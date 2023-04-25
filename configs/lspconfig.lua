@@ -110,6 +110,16 @@ local spec = {
     "williamboman/mason-lspconfig",
     "jose-elias-alvarez/null-ls.nvim",
     "jay-babu/mason-null-ls.nvim",
+    {
+      "SmiteshP/nvim-navbuddy",
+      cmd = "Navbuddy",
+      event = { "CmdlineEnter" },
+      dependencies = {
+        "SmiteshP/nvim-navic",
+        "MunifTanjim/nui.nvim",
+      },
+      opts = { lsp = { auto_attach = true } },
+    },
   },
 }
 
