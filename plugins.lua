@@ -134,6 +134,24 @@ local plugins = {
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
   },
+
+  -- better marks
+  {
+    "chentoast/marks.nvim",
+    event = { "BufRead", "BufNewFile" },
+    config = true,
+  },
+
+  -- better marks per project
+  {
+    "ThePrimeagen/harpoon",
+    init = function()
+      require("core.utils").load_mappings "harpoon"
+    end,
+    dependencies = "nvim-lua/plenary.nvim",
+    event = { "BufRead", "BufNewFile" },
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

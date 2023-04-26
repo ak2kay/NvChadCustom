@@ -101,4 +101,23 @@ M.copilot = {
   },
 }
 
+M.harpoon = {
+  plugin = true,
+
+  n = {
+    ["<c-p>"] = {
+      function()
+        require("harpoon.ui").toggle_quick_menu()
+      end,
+      "toggle harpoon quick menu",
+    },
+    ["<c-b>"] = {
+      function()
+        require("harpoon.mark").add_file()
+      end,
+      "add current file to harpoon",
+    },
+  },
+}
+
 return M
