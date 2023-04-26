@@ -51,7 +51,7 @@ local plugins = {
 
   {
     "github/copilot.vim",
-    event = { "BufRead" },
+    event = { "BufRead", "BufNewFile" },
     init = function()
       require("core.utils").load_mappings "copilot"
     end,

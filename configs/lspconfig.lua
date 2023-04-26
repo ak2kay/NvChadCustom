@@ -3,6 +3,7 @@ local setup = function(_, opts)
   local capabilities = require("plugins.configs.lspconfig").capabilities
 
   local lspconfig = require "lspconfig"
+  local navic = require "nvim-navic"
 
   -- List of servers to install
   local servers = { "html", "cssls", "tsserver", "clangd", "gopls" }
@@ -22,8 +23,9 @@ local setup = function(_, opts)
       lspconfig[server_name].setup {
         on_attach = function(client, bufnr)
           on_attach(client, bufnr)
-          -- Add your other things here
-          -- Example being format on save or something
+          if client.server_capabilities.documentSymbolProvider then
+            navic.attach(client, bufnr)
+          end
         end,
         capabilities = capabilities,
       }
@@ -99,7 +101,7 @@ end
 local spec = {
   "neovim/nvim-lspconfig",
   -- BufRead is to make sure if you do nvim some_file then this is still going to be loaded
-  event = { "VeryLazy", "BufRead" },
+  event = { "VeryLazy", "BufRead", "BufNewFile" },
   dependencies = {
     {
       "williamboman/mason.nvim",
@@ -119,6 +121,17 @@ local spec = {
         "MunifTanjim/nui.nvim",
       },
       opts = { lsp = { auto_attach = true } },
+    },
+    {
+      "j-hui/fidget.nvim",
+      event = "BufReadPre",
+      config = function()
+        require("fidget").setup {}
+      end,
+    },
+    {
+      "SmiteshP/nvim-navic",
+      event = { "BufReadPre", "BufNewFile" },
     },
   },
 }
