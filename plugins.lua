@@ -128,6 +128,12 @@ local plugins = {
     event = { "BufRead" },
   },
 
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = true,
+  },
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
