@@ -123,6 +123,11 @@ local plugins = {
     build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
   },
 
+  {
+    "ggandor/lightspeed.nvim",
+    event = { "BufRead" },
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",
