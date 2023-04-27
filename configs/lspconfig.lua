@@ -75,7 +75,16 @@ local setup = function(_, opts)
     end,
   }
 
-  require("null-ls").setup {}
+  require("null-ls").setup {
+    on_attach = function()
+      vim.api.nvim_create_autocmd("BufWritePost", {
+        pattern = { "*.c", "*.h", "*.lua", "*.go", "*.js", "*.ts", "*.tsx", "*.json", "*.yaml", "*.yml" },
+        callback = function()
+          vim.lsp.buf.format()
+        end,
+      })
+    end,
+  }
   require("mason-null-ls").setup {
     ensure_installed = {
       "stylua",

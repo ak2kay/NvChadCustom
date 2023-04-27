@@ -16,7 +16,6 @@ vim.cmd [[
 -- better diff view, see: https://github.com/neovim/neovim/pull/14537
 vim.cmd [[set diffopt+=linematch:50]]
 
-
 local opt = vim.opt
 
 -- no swap file warning!
