@@ -47,7 +47,7 @@ M.ui = {
         -- override default lsp progress component of nvchad, we use fidget.nvim instead.
         LSP_progress = function()
           if rawget(vim, "lsp") then
-            return nvim_navic()
+            return "%#Nvim_navic#" .. nvim_navic()
           else
             return ""
           end
