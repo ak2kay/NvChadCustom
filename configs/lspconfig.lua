@@ -1,3 +1,5 @@
+local overrides = require "custom.configs.overrides"
+
 local setup = function(_, opts)
   local on_attach = require("plugins.configs.lspconfig").on_attach
   local capabilities = require("plugins.configs.lspconfig").capabilities
@@ -93,7 +95,7 @@ local setup = function(_, opts)
       "goimports",
       "fixjson",
       "yamlfmt",
-      "deno_fmt", -- choosed deno for ts/js files cuz it's very fast
+      "dprint",
       "prettier",
     },
     automatic_setup = true,
@@ -114,6 +116,7 @@ local spec = {
   dependencies = {
     {
       "williamboman/mason.nvim",
+      opts = overrides.mason,
       config = function(plugin, opts)
         setup(plugin, opts)
       end,
