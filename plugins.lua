@@ -167,6 +167,19 @@ local plugins = {
     end,
   },
 
+  {
+    "sindrets/diffview.nvim",
+    cmd = {
+      "DiffviewOpen",
+      "DiffviewClose",
+      "DiffviewToggleFiles",
+      "DiffviewFocusFiles",
+      "DiffviewRefresh",
+      "DiffviewFileHistory",
+    },
+    dependencies = "nvim-lua/plenary.nvim",
+  },
+
   -- lsp-extra config
   { import = "custom.configs.lspconfig" },
 
