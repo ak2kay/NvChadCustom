@@ -120,4 +120,44 @@ M.harpoon = {
   },
 }
 
+M.ufo = {
+  plugin = true,
+
+  n = {
+    ["zR"] = {
+      function()
+        require("ufo").openAllFolds()
+      end,
+      "open all folds",
+    },
+    ["zM"] = {
+      function()
+        require("ufo").closeAllFolds()
+      end,
+      "close all folds",
+    },
+    ["zr"] = {
+      function()
+        require("ufo").openFoldsExceptKinds()
+      end,
+      "open more folds",
+    },
+    ["zm"] = {
+      function()
+        require("ufo").closeFoldsWith()
+      end,
+      "close more folds",
+    },
+    ["K"] = {
+      function()
+        local winid = require("ufo").peekFoldedLinesUnderCursor()
+        if not winid then
+          vim.lsp.buf.hover()
+        end
+      end,
+      "peek folds"
+    },
+  },
+}
+
 return M

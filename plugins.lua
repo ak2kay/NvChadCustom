@@ -200,6 +200,9 @@ local plugins = {
 
   -- vim-fugitive
   { import = "custom.configs.fugitive" },
+
+  -- folds
+  { import = "custom.configs.ufo" },
 }
 
 return plugins
