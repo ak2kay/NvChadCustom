@@ -80,7 +80,7 @@ local setup = function(_, opts)
   require("null-ls").setup {
     on_attach = function()
       vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = { "*.c", "*.h", "*.lua", "*.go", "*.js", "*.ts", "*.tsx", "*.json", "*.yaml", "*.yml" },
+        pattern = { "*.c", "*.h", "*.lua", "*.go", "*.js", "*.ts", "*.tsx", "*.json", "*.yaml", "*.yml", "*.sh" },
         callback = function()
           vim.lsp.buf.format()
         end,
@@ -97,6 +97,7 @@ local setup = function(_, opts)
       "yamlfmt",
       "dprint",
       "prettier",
+      "shfmt",
     },
     automatic_setup = true,
     handlers = {
