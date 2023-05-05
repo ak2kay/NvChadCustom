@@ -1,6 +1,12 @@
 ---@type MappingsTable
 local M = {}
 
+M.disabled = {
+  n = {
+    ["<leader>fa"] = "",
+  },
+}
+
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
@@ -155,7 +161,20 @@ M.ufo = {
           vim.lsp.buf.hover()
         end
       end,
-      "peek folds"
+      "peek folds",
+    },
+  },
+}
+
+M.telescope = {
+  n = {
+    ["<leader>fa"] = {
+      function()
+        require("telescope.builtin").find_files {
+          previewer = false,
+        }
+      end,
+      "find all",
     },
   },
 }
