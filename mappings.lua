@@ -172,6 +172,10 @@ M.telescope = {
       function()
         require("telescope.builtin").find_files {
           previewer = false,
+          follow = false,
+          hidden = true,
+          no_ignore = true,
+          no_ignore_parent = true,
         }
       end,
       "find all",
