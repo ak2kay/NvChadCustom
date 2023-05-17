@@ -165,6 +165,13 @@ local plugins = {
     dependencies = "nvim-lua/plenary.nvim",
   },
 
+  {
+    "tpope/vim-obsession",
+    event = {
+      "BufEnter",
+    },
+  },
+
   -- lsp-extra config
   { import = "custom.configs.lspconfig" },
 
