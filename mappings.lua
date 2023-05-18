@@ -4,6 +4,20 @@ local M = {}
 M.disabled = {
   n = {
     ["<leader>fa"] = "",
+
+    -- disable default keys. we will use those keys for nvim-tmux-navigation
+    ["<C-h>"] = "",
+    ["<C-l>"] = "",
+    ["<C-j>"] = "",
+    ["<C-k>"] = "",
+  },
+
+  i = {
+    -- disable default keys. we will use those keys for nvim-tmux-navigation
+    ["<C-h>"] = "",
+    ["<C-l>"] = "",
+    ["<C-j>"] = "",
+    ["<C-k>"] = "",
   },
 }
 
@@ -179,6 +193,88 @@ M.telescope = {
         }
       end,
       "find all",
+    },
+  },
+}
+
+M.navigation = {
+  plugin = true,
+
+  n = {
+    ["<C-h>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
+      end,
+      "navigate left",
+    },
+    ["<C-j>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateDown()
+      end,
+      "navigate down",
+    },
+    ["<C-k>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateUp()
+      end,
+      "navigate up",
+    },
+    ["<C-l>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateRight()
+      end,
+      "navigate right",
+    },
+    ["<C-\\>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateLastActive()
+      end,
+      "navigate last active",
+    },
+    ["<C-Space>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateNext()
+      end,
+      "navigate next",
+    },
+  },
+
+  i = {
+    ["<C-h>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
+      end,
+      "navigate left",
+    },
+    ["<C-j>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateDown()
+      end,
+      "navigate down",
+    },
+    ["<C-k>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateUp()
+      end,
+      "navigate up",
+    },
+    ["<C-l>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateRight()
+      end,
+      "navigate right",
+    },
+    ["<C-\\>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateLastActive()
+      end,
+      "navigate last active",
+    },
+    ["<C-Space>"] = {
+      function()
+        require("nvim-tmux-navigation").NvimTmuxNavigateNext()
+      end,
+      "navigate next",
     },
   },
 }

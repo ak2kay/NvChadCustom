@@ -172,6 +172,21 @@ local plugins = {
     },
   },
 
+  {
+    "alexghergh/nvim-tmux-navigation",
+    init = function()
+      require("core.utils").load_mappings "navigation"
+    end,
+    event = { "BufEnter" },
+    config = function()
+      local nvim_tmux_nav = require "nvim-tmux-navigation"
+
+      nvim_tmux_nav.setup {
+        disable_when_zoomed = true, -- defaults to false
+      }
+    end,
+  },
+
   -- lsp-extra config
   { import = "custom.configs.lspconfig" },
 
