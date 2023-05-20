@@ -63,4 +63,9 @@ M.telescope = {
   extensions_list = { "themes", "terms", "fzf" },
 }
 
+M.indentblankline = {
+  buftype_exclude = { "terminal", "nofile", },
+  show_trailing_blankline_indent = true,
+}
+
 return M

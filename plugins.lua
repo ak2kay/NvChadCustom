@@ -134,6 +134,11 @@ local plugins = {
   },
 
   {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = overrides.indentblankline,
+  },
+
+  {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
   },
