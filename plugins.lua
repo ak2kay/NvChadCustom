@@ -41,6 +41,59 @@ local plugins = {
   },
 
   {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "SmiteshP/nvim-navbuddy",
+        "SmiteshP/nvim-navic",
+      },
+    },
+    config = function()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end,
+  },
+  {
+    "SmiteshP/nvim-navbuddy",
+    cmd = "Navbuddy",
+    event = { "CmdlineEnter" },
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "MunifTanjim/nui.nvim",
+    },
+  },
+  {
+    "SmiteshP/nvim-navic",
+    event = { "BufReadPre", "BufNewFile" },
+  },
+  {
+    "jose-elias-alvarez/typescript.nvim",
+    config = function()
+      local on_attach = require("plugins.configs.lspconfig").on_attach
+      local capabilities = require("plugins.configs.lspconfig").capabilities
+
+      require("typescript").setup {
+        disable_commands = false,
+        debug = false,
+        go_to_source_definition = {
+          fallback = true,
+        },
+        server = {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        },
+      }
+    end,
+  },
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufRead" },
+    config = function()
+      require "custom.configs.null-ls"
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
     "folke/trouble.nvim",
     dependencies = "nvim-tree/nvim-web-devicons",
     cmd = { "TroubleToggle", "Trouble" },
@@ -48,7 +101,6 @@ local plugins = {
       require("trouble").setup { _diagnostic_signs = true }
     end,
   },
-
   {
     "github/copilot.vim",
     event = { "BufRead", "BufNewFile" },
@@ -220,9 +272,6 @@ local plugins = {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-
-  -- lsp-extra config
-  { import = "custom.configs.lspconfig" },
 
   -- Search && replace tool in global scope
   {

@@ -1,152 +1,51 @@
-local overrides = require "custom.configs.overrides"
+local on_attach = require("plugins.configs.lspconfig").on_attach
+local capabilities = require("plugins.configs.lspconfig").capabilities
 
-local setup = function(_, opts)
-  local on_attach = require("plugins.configs.lspconfig").on_attach
-  local capabilities = require("plugins.configs.lspconfig").capabilities
+local navic = require "nvim-navic"
+local navbuddy = require "nvim-navbuddy"
+local custom_on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
 
-  local lspconfig = require "lspconfig"
-  local navic = require "nvim-navic"
-
-  -- List of servers to install
-  local servers = { "html", "cssls", "tsserver", "clangd", "gopls" }
-
-  require("mason").setup(opts)
-
-  require("mason-lspconfig").setup {
-    ensure_installed = servers,
-  }
-
-  -- This will setup lsp for servers you listed above
-  -- And servers you install through mason UI
-  -- So defining servers in the list above is optional
-  require("mason-lspconfig").setup_handlers {
-    -- Default setup for all servers, unless a custom one is defined below
-    function(server_name)
-      lspconfig[server_name].setup {
-        on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
-          if client.server_capabilities.documentSymbolProvider then
-            navic.attach(client, bufnr)
-          end
-        end,
-        capabilities = capabilities,
-      }
-    end,
-    -- custom setup for a server goes after the function above
-    -- Example, override rust_analyzer
-    -- ["rust_analyzer"] = function ()
-    --   require("rust-tools").setup {}
-    -- end,
-    -- Another example with clangd
-    -- Users usually run into different offset_encodings issue,
-    -- so this is how to bypass it (kindof)
-    ["clangd"] = function()
-      lspconfig.clangd.setup {
-        cmd = {
-          "clangd",
-          "--offset-encoding=utf-16", -- To match null-ls
-          --  With this, you can configure server with
-          --    - .clangd files
-          --    - global clangd/config.yaml files
-          --  Read https://clangd.llvm.org/config for more information
-          "--enable-config",
-        },
-        on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
-        end,
-        capabilities = capabilities,
-      }
-    end,
-
-    -- Example: disable auto configuring an LSP
-    -- Here, we disable lua_ls so we can use NvChad's default config
-    ["lua_ls"] = function() end,
-
-    ["yamlls"] = function()
-      lspconfig.yamlls.setup {
-        on_attach = function(client, bufnr)
-          on_attach(client, bufnr)
-        end,
-        capabilities = capabilities,
-        settings = {
-          yaml = {
-            keyOrdering = false,
-          },
-        },
-      }
-    end,
-  }
-
-  require("null-ls").setup {
-    on_attach = function()
-      vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = { "*.c", "*.h", "*.lua", "*.go", "*.js", "*.ts", "*.tsx", "*.json", "*.yaml", "*.yml", "*.sh" },
-        callback = function()
-          vim.lsp.buf.format()
-        end,
-      })
-    end,
-  }
-  require("mason-null-ls").setup {
-    ensure_installed = {
-      "stylua",
-      "clang_format",
-      "gofumpt",
-      "goimports",
-      "fixjson",
-      "yamlfmt",
-      "dprint",
-      "prettier",
-      "shfmt",
-    },
-    automatic_setup = true,
-    handlers = {
-      prettier = function()
-        local null_ls = require "null-ls"
-        null_ls.register(null_ls.builtins.formatting.prettier.with { filetypes = { "html", "markdown", "css" } })
-      end,
-    },
-  }
+  if client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+    navbuddy.attach(client, bufnr)
+  end
 end
 
----@type NvPluginSpec
-local spec = {
-  "neovim/nvim-lspconfig",
-  -- BufRead is to make sure if you do nvim some_file then this is still going to be loaded
-  event = { "VeryLazy", "BufRead", "BufNewFile" },
-  dependencies = {
-    {
-      "williamboman/mason.nvim",
-      opts = overrides.mason,
-      config = function(plugin, opts)
-        setup(plugin, opts)
-      end,
-    },
-    "williamboman/mason-lspconfig",
-    "jose-elias-alvarez/null-ls.nvim",
-    "jay-babu/mason-null-ls.nvim",
-    {
-      "SmiteshP/nvim-navbuddy",
-      cmd = "Navbuddy",
-      event = { "CmdlineEnter" },
-      dependencies = {
-        "SmiteshP/nvim-navic",
-        "MunifTanjim/nui.nvim",
+local lspconfig = require "lspconfig"
+
+local servers = { "gopls", "pylyzer" }
+
+local server_opts = {
+  gopls = {
+    settings = {
+      gopls = {
+        analyses = {
+          nilness = true,
+          shadow = true,
+          unusedparams = true,
+          unusedvariable = true,
+          unusedwrite = true,
+        },
+        staticcheck = true,
       },
-      opts = { lsp = { auto_attach = true } },
-    },
-    {
-      "j-hui/fidget.nvim",
-      event = "BufReadPre",
-      config = function()
-        require("fidget").setup {}
-      end,
-    },
-    {
-      "SmiteshP/nvim-navic",
-      event = { "BufReadPre", "BufNewFile" },
     },
   },
 }
 
-return spec
+local default_opts = {
+  on_attach = custom_on_attach,
+  capabilities = capabilities,
+}
+
+local function merge_opts(server_name)
+  local custom_opts = {}
+  if servers[server_name] ~= nil then
+    custom_opts = server_opts[server_name]
+  end
+  return vim.tbl_deep_extend("force", default_opts, custom_opts)
+end
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup { merge_opts(lsp) }
+end
