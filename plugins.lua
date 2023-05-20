@@ -40,6 +40,7 @@ local plugins = {
     end,
   },
 
+  -- lsp
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -124,6 +125,42 @@ local plugins = {
         ["go"] = true,
         ["python"] = true,
       }
+    end,
+  },
+
+  -- dap
+  {
+    "mfussenegger/nvim-dap",
+    init = function()
+      require("core.utils").load_mappings "dap"
+    end,
+    dependencies = {
+      "theHamsta/nvim-dap-virtual-text",
+      "rcarriga/nvim-dap-ui",
+    },
+    config = function()
+      require("custom.configs.dap").setup()
+    end,
+  },
+  {
+    "leoluz/nvim-dap-go",
+    init = function()
+      require("core.utils").load_mappings "dapgo"
+    end,
+    ft = { "go" },
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    config = true,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = { "python" },
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      require("dap-python").setup("python", {})
     end,
   },
 

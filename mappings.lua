@@ -279,4 +279,54 @@ M.navigation = {
   },
 }
 
+M.dap = {
+  plugin = true,
+
+  n = {
+    ["<leader>dd"] = {
+      function()
+        require("dap").continue()
+      end,
+      "start debugging",
+    },
+    ["<leader>db"] = {
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      "toggle breakpoint",
+    },
+    ["<leader>dso"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "step over",
+    },
+    ["<leader>dsi"] = {
+      function()
+        require("dap").step_into()
+      end,
+      "step into",
+    },
+  },
+}
+
+M.dapgo = {
+  plugin = true,
+
+  n = {
+    ["<leader>dgt"] = {
+      function()
+        require("dap-go").debug_test()
+      end,
+      "debug current test of golang",
+    },
+    ["<leader>dglt"] = {
+      function()
+        require("dap-go").debug_last_test()
+      end,
+      "debug last test debuged of golang",
+    },
+  },
+}
+
 return M
