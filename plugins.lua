@@ -225,22 +225,68 @@ local plugins = {
   { import = "custom.configs.lspconfig" },
 
   -- Search && replace tool in global scope
-  { import = "custom.configs.ctrlsf" },
+  {
+    "dyng/ctrlsf.vim",
+    init = function()
+      require("core.utils").load_mappings "ctrlsf"
+    end,
+    cmd = { "CtrlSF" },
+    keys = { [[<leader>rw]] },
+    config = function()
+      vim.g["ctrlsf_auto_focus"] = { at = "start" }
+      vim.g["ctrlsf_position"] = "right"
+    end,
+  },
 
   -- yank through ssh
-  { import = "custom.configs.osc52" },
+  {
+    "ojroques/nvim-osc52",
+    init = function()
+      require("core.utils").load_mappings "osc52"
+    end,
+    event = "BufRead",
+  },
 
   -- generate shareable file link of git repo
-  { import = "custom.configs.gitlinker" },
+  {
+    "ruifm/gitlinker.nvim",
+    keys = { [[<leader>gy]] }, -- this is the built-in keymap
+    dependencies = { "ojroques/vim-oscyank", "nvim-lua/plenary.nvim" },
+    config = function()
+      require("gitlinker").setup {
+        opts = {
+          action_callback = function(url)
+            -- yank to unnamed register
+            vim.api.nvim_command("let @\" = '" .. url .. "'")
+            -- copy to the system clipboard using OSC52
+            --[[ vim.fn.OSCYankString(url) ]]
+            require("osc52").copy(url)
+          end,
+        },
+        callbacks = {
+          ["git-pd.megvii-inc.com"] = require("gitlinker.hosts").get_gitlab_type_url,
+        },
+      }
+    end,
+  },
+
+  -- lsp preview
+  {
+    "rmagatti/goto-preview",
+    init = function()
+      require("core.utils").load_mappings "gotopreview"
+    end,
+    event = "BufRead",
+    config = true,
+  },
+
+  {
+    "tpope/vim-fugitive",
+    cmd = { "Git" },
+  },
 
   -- lsp glance
   { import = "custom.configs.glance" },
-
-  -- lsp preview
-  { import = "custom.configs.goto-preview" },
-
-  -- vim-fugitive
-  { import = "custom.configs.fugitive" },
 
   -- folds
   { import = "custom.configs.ufo" },
