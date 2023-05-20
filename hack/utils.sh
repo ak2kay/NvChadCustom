@@ -11,7 +11,7 @@ asksure() {
 
 	echo # just a final linefeed, optics...
 
-	return $retval
+	return "$retval"
 }
 
 ensureTargetDir() {

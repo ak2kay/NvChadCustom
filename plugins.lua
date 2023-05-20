@@ -184,12 +184,6 @@ local plugins = {
     event = { "BufRead", "BufNewFile" },
   },
 
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
-
   -- markdown preview
   { "ellisonleao/glow.nvim", config = true, cmd = { "Glow", "GlowInstall" } },
 
@@ -217,13 +211,13 @@ local plugins = {
     dependencies = "nvim-lua/plenary.nvim",
   },
 
+  -- tmux related
   {
     "tpope/vim-obsession",
     event = {
       "BufEnter",
     },
   },
-
   {
     "alexghergh/nvim-tmux-navigation",
     init = function()
