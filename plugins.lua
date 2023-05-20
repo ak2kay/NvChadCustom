@@ -339,6 +339,11 @@ local plugins = {
 
   -- folds
   { import = "custom.configs.ufo" },
+
+  {
+    "williamboman/mason.nvim",
+    enable = false,
+  },
 }
 
 return plugins
