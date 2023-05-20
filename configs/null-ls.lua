@@ -1,5 +1,6 @@
 local null_ls = require "null-ls"
 local b = null_ls.builtins
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 local with_diagnostics_code = function(builtin)
   return builtin.with {
@@ -7,13 +8,20 @@ local with_diagnostics_code = function(builtin)
   }
 end
 
-local on_attach = function()
-  vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = { "*.c", "*.h", "*.lua", "*.go", "*.js", "*.ts", "*.tsx", "*.json", "*.yaml", "*.yml", "*.sh" },
-    callback = function()
-      vim.lsp.buf.format()
-    end,
-  })
+local on_attach = function(client, bufnr)
+  if client.supports_method "textDocument/formatting" then
+    vim.api.nvim_clear_autocmds {
+      group = augroup,
+      buffer = bufnr,
+    }
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format { bufnr = bufnr }
+      end,
+    })
+  end
 end
 
 null_ls.setup {
