@@ -370,6 +370,11 @@ local plugins = {
     cmd = { "Git" },
   },
 
+  {
+    "mbbill/undotree",
+    cmd = { "UndotreeToggle" },
+  },
+
   -- lsp glance
   { import = "custom.configs.glance" },
 
