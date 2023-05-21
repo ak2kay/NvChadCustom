@@ -48,7 +48,7 @@ M.ctrlsf = {
   plugin = true,
 
   n = {
-    ["<leader>rw"] = { "<cmd> CtrlSF <CR>", "search current work under cursor" },
+    ["<leader>ws"] = { ":CtrlSF <C-R><C-W><CR>", "search current work under cursor" },
   },
 }
 
