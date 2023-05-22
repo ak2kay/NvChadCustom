@@ -40,12 +40,12 @@ local default_opts = {
 
 local function merge_opts(server_name)
   local custom_opts = {}
-  if servers[server_name] ~= nil then
+  if server_opts[server_name] ~= nil then
     custom_opts = server_opts[server_name]
   end
   return vim.tbl_deep_extend("force", default_opts, custom_opts)
 end
 
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup { merge_opts(lsp) }
+  lspconfig[lsp].setup(merge_opts(lsp))
 end
