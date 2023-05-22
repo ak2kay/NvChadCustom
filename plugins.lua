@@ -383,7 +383,7 @@ local plugins = {
 
   {
     "williamboman/mason.nvim",
-    enable = false,
+    enabled = false,
   },
 }
 
