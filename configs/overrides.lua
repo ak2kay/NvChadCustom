@@ -1,5 +1,12 @@
 local M = {}
 
+M.mason = {
+  ensure_installed = {
+    -- dap
+    "codelldb",
+  },
+}
+
 M.treesitter = {
   ensure_installed = {
     "bash",
@@ -64,7 +71,7 @@ M.telescope = {
 }
 
 M.indentblankline = {
-  buftype_exclude = { "terminal", "nofile", },
+  buftype_exclude = { "terminal", "nofile" },
   show_trailing_blankline_indent = true,
 }
 

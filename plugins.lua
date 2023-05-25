@@ -188,6 +188,10 @@ local plugins = {
     opts = overrides.telescope,
   },
 
+  {
+    "williamboman/mason.nvim",
+    opts = overrides.mason,
+  },
   -- Install a plugin
   {
     "max397574/better-escape.nvim",
@@ -380,11 +384,6 @@ local plugins = {
 
   -- folds
   { import = "custom.configs.ufo" },
-
-  {
-    "williamboman/mason.nvim",
-    enabled = false,
-  },
 }
 
 return plugins
