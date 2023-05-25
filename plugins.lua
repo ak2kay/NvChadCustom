@@ -87,6 +87,26 @@ local plugins = {
     end,
   },
   {
+    "simrat39/rust-tools.nvim",
+    dependencies = {
+      "neovim/nvim-lspconfig",
+    },
+    ft = { "rust" },
+    config = function()
+      local on_attach = require("plugins.configs.lspconfig").on_attach
+      local capabilities = require("plugins.configs.lspconfig").capabilities
+
+      local rt = require "rust-tools"
+
+      rt.setup {
+        server = {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        },
+      }
+    end,
+  },
+  {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufRead" },
     config = function()
