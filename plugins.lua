@@ -400,6 +400,12 @@ local plugins = {
     cmd = { "UndotreeToggle" },
   },
 
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+    config = true,
+  },
+
   -- lsp glance
   { import = "custom.configs.glance" },
 
