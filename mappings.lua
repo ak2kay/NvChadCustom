@@ -329,4 +329,17 @@ M.dapgo = {
   },
 }
 
+M.dappy = {
+  plugin = true,
+
+  n = {
+    ["<leader>dpt"] = {
+      function()
+        require("dap-python").test_method()
+      end,
+      "debug current test of python",
+    },
+  },
+}
+
 return M

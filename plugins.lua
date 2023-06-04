@@ -176,6 +176,9 @@ local plugins = {
   },
   {
     "mfussenegger/nvim-dap-python",
+    init = function()
+      require("core.utils").load_mappings "dappy"
+    end,
     ft = { "python" },
     dependencies = {
       "mfussenegger/nvim-dap",
