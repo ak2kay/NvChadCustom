@@ -29,7 +29,7 @@ null_ls.setup {
     b.formatting.stylua,
     b.formatting.black.with { extra_args = { "--fast" } },
     b.formatting.clang_format, -- it also formats proto
-    b.formatting.deno_fmt.with {
+    b.formatting.prettierd.with {
       filetypes = { "javascript", "javascriptreact", "jsonc", "markdown", "typescript", "typescriptreact" },
     },
     b.formatting.gofumpt,
