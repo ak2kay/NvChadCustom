@@ -6,6 +6,15 @@ autocmd("VimResized", {
   command = "tabdo wincmd =",
 })
 
+autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  callback = function(_)
+    local save_cursor = vim.fn.getpos "."
+    vim.cmd [[%s/\s\+$//e]]
+    vim.fn.setpos(".", save_cursor)
+  end,
+})
+
 -- try to fix nvim overlapping in tmux
 vim.cmd [[
   if &term =~ 'tmux'
