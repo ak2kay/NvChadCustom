@@ -40,7 +40,6 @@ null_ls.setup {
     b.formatting.yamlfmt,
 
     with_diagnostics_code(b.diagnostics.eslint_d),
-    with_diagnostics_code(b.diagnostics.buf),
     with_diagnostics_code(b.diagnostics.golangci_lint),
     with_diagnostics_code(b.diagnostics.shellcheck),
     with_diagnostics_code(b.diagnostics.zsh),
