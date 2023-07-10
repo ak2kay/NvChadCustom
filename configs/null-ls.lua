@@ -43,8 +43,6 @@ null_ls.setup {
     with_diagnostics_code(b.diagnostics.golangci_lint),
     with_diagnostics_code(b.diagnostics.shellcheck),
     with_diagnostics_code(b.diagnostics.zsh),
-    with_diagnostics_code(b.diagnostics.mypy),
-    with_diagnostics_code(b.diagnostics.ruff),
   },
   on_attach = on_attach,
 }
