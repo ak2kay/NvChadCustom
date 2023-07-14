@@ -30,14 +30,14 @@ null_ls.setup {
     b.formatting.black.with { extra_args = { "--fast" } },
     b.formatting.clang_format, -- it also formats proto
     b.formatting.prettierd.with {
-      filetypes = { "javascript", "javascriptreact", "jsonc", "markdown", "typescript", "typescriptreact" },
+      filetypes = { "javascript", "javascriptreact", "markdown", "typescript", "typescriptreact" },
     },
     b.formatting.gofumpt,
     b.formatting.goimports,
-    b.formatting.jq,
     b.formatting.shfmt,
     b.formatting.terraform_fmt,
     b.formatting.yamlfmt,
+    b.formatting.fixjson,
 
     with_diagnostics_code(b.diagnostics.eslint_d),
     with_diagnostics_code(b.diagnostics.golangci_lint),
