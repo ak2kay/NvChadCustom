@@ -11,6 +11,7 @@ M.treesitter = {
   ensure_installed = {
     "bash",
     "c",
+    "cpp",
     "css",
     "go",
     "html",

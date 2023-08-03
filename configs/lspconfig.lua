@@ -14,7 +14,7 @@ end
 
 local lspconfig = require "lspconfig"
 
-local servers = { "gopls", "pyright" }
+local servers = { "gopls", "pyright", "clangd" }
 
 local server_opts = {
   gopls = {
