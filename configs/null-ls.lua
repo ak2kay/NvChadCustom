@@ -8,6 +8,8 @@ local with_diagnostics_code = function(builtin)
   }
 end
 
+local enable_auto_format = true
+
 local on_attach = function(client, bufnr)
   if client.supports_method "textDocument/formatting" then
     vim.api.nvim_clear_autocmds {
@@ -18,11 +20,20 @@ local on_attach = function(client, bufnr)
       group = augroup,
       buffer = bufnr,
       callback = function()
-        vim.lsp.buf.format { bufnr = bufnr }
+        if enable_auto_format then
+          vim.lsp.buf.format { bufnr = bufnr }
+        end
       end,
     })
   end
 end
+
+local toggleAutoFormat = function()
+  enable_auto_format = not enable_auto_format
+  print("auto format: ", enable_auto_format)
+end
+
+vim.api.nvim_create_user_command("ToggleAutoFormat", toggleAutoFormat, {})
 
 null_ls.setup {
   sources = {
