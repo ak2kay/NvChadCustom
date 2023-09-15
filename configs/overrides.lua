@@ -68,7 +68,7 @@ M.telescope = {
       -- the default case_mode is "smart_case"
     },
   },
-  extensions_list = { "themes", "terms", "fzf" },
+  extensions_list = { "themes", "terms", "fzf", "git_worktree" },
 }
 
 M.indentblankline = {
