@@ -4,6 +4,12 @@ local M = {}
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 
+local print_full_path = function()
+  print(vim.fn.expand "%:~:p")
+end
+
+vim.api.nvim_create_user_command("PrintFullPath", print_full_path, {})
+
 M.ui = {
   theme = "ashes",
   theme_toggle = { "ashes", "one_light" },
@@ -28,7 +34,7 @@ M.ui = {
 
       modules[2] = (function()
         local icon = "  "
-        local filename = (vim.fn.expand "%" == "" and "Empty ") or vim.fn.expand "%:~:p"
+        local filename = (vim.fn.expand "%" == "" and "Empty ") or vim.fn.expand "%:~:."
 
         if filename ~= "Empty " then
           local devicons_present, devicons = pcall(require, "nvim-web-devicons")
