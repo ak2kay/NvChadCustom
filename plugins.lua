@@ -439,7 +439,9 @@ local plugins = {
   },
 
   {
-    "ThePrimeagen/git-worktree.nvim",
+    -- "ThePrimeagen/git-worktree.nvim",
+    "brandoncc/git-worktree.nvim", -- use forked version to fix telescope related error
+    branch = "catch-and-handle-telescope-related-error",
     event = "VeryLazy",
     config = function()
       local Worktree = require "git-worktree"
