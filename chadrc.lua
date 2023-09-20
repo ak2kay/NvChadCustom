@@ -5,7 +5,7 @@ local M = {}
 local highlights = require "custom.highlights"
 
 local print_full_path = function()
-  print(vim.fn.expand "%:~:p")
+  print(vim.fn.expand "%:p")
 end
 
 vim.api.nvim_create_user_command("PrintFullPath", print_full_path, {})
