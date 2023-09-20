@@ -194,11 +194,23 @@ M.telescope = {
       end,
       "find all",
     },
+    ["<leader>gB"] = {
+      function()
+        require("telescope.builtin").git_branches {}
+      end,
+      "find branches",
+    },
     ["<leader>ge"] = {
       function()
         require("telescope").extensions.git_worktree.git_worktrees()
       end,
       "switch git worktree",
+    },
+    ["<leader>gce"] = {
+      function()
+        require("telescope").extensions.git_worktree.create_git_worktree()
+      end,
+      "create git worktree",
     },
   },
 }
