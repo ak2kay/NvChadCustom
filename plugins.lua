@@ -465,6 +465,11 @@ local plugins = {
       end)
     end,
   },
+
+  {
+    "sebdah/vim-delve",
+    ft = { "go" },
+  },
 }
 
 return plugins
