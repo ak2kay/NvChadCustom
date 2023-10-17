@@ -6,6 +6,9 @@ local plugins = {
   -- Override plugin definition options
   {
     "hrsh7th/nvim-cmp",
+    dependencies = {
+      "ray-x/cmp-treesitter",
+    },
     opts = function()
       local base_options = require "plugins.configs.cmp"
       local cmp = require "cmp"
@@ -32,6 +35,15 @@ local plugins = {
             "i",
             "s",
           }),
+        },
+        sources = {
+          -- { name = "copilot", group_index = 2 },
+          { name = "buffer", max_item_count = 4, priority = 3 },
+          { name = "treesitter", max_item_count = 4, priority = 1 },
+          { name = "nvim_lsp", max_item_count = 6, group_index = 2, priority = 2 },
+          { name = "nvim_lua", max_item_count = 4, priority = 2 },
+          { name = "luasnip", max_item_count = 2, priority = 5 },
+          { name = "path", max_item_count = 2, priority = 4 },
         },
       }
 
