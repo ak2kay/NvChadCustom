@@ -86,21 +86,18 @@ local plugins = {
     config = true,
   },
   {
-    "jose-elias-alvarez/typescript.nvim",
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    ft = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
     config = function()
       local on_attach = require("plugins.configs.lspconfig").on_attach
       local capabilities = require("plugins.configs.lspconfig").capabilities
 
-      require("typescript").setup {
-        disable_commands = false,
-        debug = false,
-        go_to_source_definition = {
-          fallback = true,
-        },
-        server = {
-          on_attach = on_attach,
-          capabilities = capabilities,
-        },
+      local tt = require "typescript-tools"
+
+      tt.setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
       }
     end,
   },
