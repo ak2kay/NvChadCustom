@@ -22,6 +22,9 @@ local plugins = {
       end
 
       local opts = {
+        view = {
+          entries = { name = "custom", selection_order = "near_cursor" },
+        },
         mapping = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() and has_words_before() then
