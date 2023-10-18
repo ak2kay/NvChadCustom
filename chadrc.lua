@@ -11,8 +11,8 @@ end
 vim.api.nvim_create_user_command("PrintFullPath", print_full_path, {})
 
 M.ui = {
-  theme = "ashes",
-  theme_toggle = { "ashes", "one_light" },
+  theme = "tundra",
+  theme_toggle = { "tundra", "one_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
