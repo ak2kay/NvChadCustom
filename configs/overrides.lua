@@ -23,6 +23,7 @@ M.treesitter = {
     "tsx",
     "typescript",
     "vim",
+    "sql",
   },
   indent = {
     enable = true,

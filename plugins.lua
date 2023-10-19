@@ -53,6 +53,24 @@ local plugins = {
       opts = vim.tbl_deep_extend("force", base_options, opts)
       return opts
     end,
+    config = function(_, opts)
+      local cmp = require "cmp"
+      cmp.setup(opts)
+
+      local autocomplete_group = vim.api.nvim_create_augroup("vimrc_autocompletion", { clear = true })
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "sql", "mysql", "plsql" },
+        callback = function()
+          cmp.setup.buffer {
+            sources = {
+              { name = "vim-dadbod-completion" },
+              { name = "buffer" },
+            },
+          }
+        end,
+        group = autocomplete_group,
+      })
+    end,
   },
 
   -- lsp
@@ -470,6 +488,23 @@ local plugins = {
   {
     "sebdah/vim-delve",
     ft = { "go" },
+  },
+
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    dependencies = {
+      { "tpope/vim-dadbod", lazy = true },
+      { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
+    },
+    cmd = {
+      "DBUI",
+      "DBUIToggle",
+      "DBUIAddConnection",
+      "DBUIFindBuffer",
+    },
+    init = function()
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
   },
 }
 
