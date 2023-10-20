@@ -360,4 +360,23 @@ M.dappy = {
   },
 }
 
+M.flash = {
+  plugin = true,
+
+  n = {
+    ["<leader>ss"] = {
+      function()
+        require("flash").jump()
+      end,
+      "jump in buffer",
+    },
+    ["<leader>st"] = {
+      function()
+        require("flash").treesitter()
+      end,
+      "jump in buffer",
+    },
+  },
+}
+
 return M
