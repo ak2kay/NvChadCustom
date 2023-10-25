@@ -144,24 +144,6 @@ local plugins = {
     end,
   },
   {
-    "ray-x/go.nvim",
-    dependencies = {
-      "ray-x/guihua.lua",
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("go").setup {
-        lsp_cfg = false,
-      }
-
-      local cfg = require("go.lsp").config()
-      require("lspconfig").gopls.setup(cfg)
-    end,
-    event = { "CmdlineEnter" },
-    ft = { "go", "gomod" },
-  },
-  {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufRead" },
     config = function()
