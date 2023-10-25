@@ -48,6 +48,13 @@ local plugins = {
           { name = "luasnip", max_item_count = 2, priority = 5 },
           { name = "path", max_item_count = 2, priority = 4 },
         },
+        enabled = function()
+          local buftype = vim.api.nvim_buf_get_option(0, "buftype")
+          if buftype == "prompt" or buftype == "nofile" then
+            return false
+          end
+          return true
+        end,
       }
 
       opts = vim.tbl_deep_extend("force", base_options, opts)
