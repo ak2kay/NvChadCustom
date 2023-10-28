@@ -528,6 +528,14 @@ local plugins = {
       }
     end,
   },
+  {
+    "dgagn/diagflow.nvim",
+    event = "LspAttach",
+    opts = {
+      scope = "line",
+      toggle_event = { "InsertEnter" },
+    },
+  },
 }
 
 return plugins
