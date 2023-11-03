@@ -1,9 +1,11 @@
 local M = {
   "dnlhc/glance.nvim",
-  init = function()
-    require("core.utils").load_mappings "glance"
-  end,
-  event = "BufRead",
+  event = "LspAttach",
+  keys = {
+    { "ggd", "<cmd>Glance definitions<cr>", desc = "have a glance at definition" },
+    { "ggr", "<cmd>Glance references<cr>", desc = "have a glance at references" },
+    { "ggi", "<cmd>Glance implementations<cr>", desc = "have a glance at implementations" },
+  },
 }
 
 function M.config()

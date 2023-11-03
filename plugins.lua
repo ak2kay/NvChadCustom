@@ -97,7 +97,6 @@ local plugins = {
   {
     "SmiteshP/nvim-navbuddy",
     cmd = "Navbuddy",
-    event = { "CmdlineEnter" },
     dependencies = {
       "SmiteshP/nvim-navic",
       "MunifTanjim/nui.nvim",
@@ -105,7 +104,7 @@ local plugins = {
   },
   {
     "SmiteshP/nvim-navic",
-    event = { "BufReadPre", "BufNewFile" },
+    ft = { "go", "rust", "python", "lua", "javascript", "typescript", "typescriptreact", "javascriptreact" },
   },
   {
     "j-hui/fidget.nvim",
@@ -169,10 +168,19 @@ local plugins = {
   {
     "github/copilot.vim",
     event = { "BufRead", "BufNewFile" },
-    init = function()
-      require("core.utils").load_mappings "copilot"
-    end,
     cmd = { "Copilot" },
+    keys = {
+      {
+        "<c-y>",
+        'copilot#Accept("<CR>")',
+        desc = "accept copilot suggestion",
+        expr = true,
+        silent = true,
+        script = true,
+        replace_keycodes = false,
+        mode = "i",
+      },
+    },
     config = function()
       local g = vim.g
 
@@ -196,12 +204,39 @@ local plugins = {
   -- dap
   {
     "mfussenegger/nvim-dap",
-    init = function()
-      require("core.utils").load_mappings "dap"
-    end,
     dependencies = {
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
+    },
+    keys = {
+      {
+        "<leader>dd",
+        function()
+          require("dap").continue()
+        end,
+        desc = "start debugging",
+      },
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "toggle breakpoint",
+      },
+      {
+        "<leader>dso",
+        function()
+          require("dap").step_over()
+        end,
+        desc = "step over",
+      },
+      {
+        "<leader>dsi",
+        function()
+          require("dap").step_into()
+        end,
+        desc = "step into",
+      },
     },
     config = function()
       require("custom.configs.dap").setup()
@@ -209,10 +244,24 @@ local plugins = {
   },
   {
     "leoluz/nvim-dap-go",
-    init = function()
-      require("core.utils").load_mappings "dapgo"
-    end,
     ft = { "go" },
+    keys = {
+
+      {
+        "<leader>dgt",
+        function()
+          require("dap-go").debug_test()
+        end,
+        desc = "debug current test of golang",
+      },
+      {
+        "<leader>dglt",
+        function()
+          require("dap-go").debug_last_test()
+        end,
+        desc = "debug last test debuged of golang",
+      },
+    },
     dependencies = {
       "mfussenegger/nvim-dap",
     },
@@ -220,10 +269,16 @@ local plugins = {
   },
   {
     "mfussenegger/nvim-dap-python",
-    init = function()
-      require("core.utils").load_mappings "dappy"
-    end,
     ft = { "python" },
+    keys = {
+      {
+        "<leader>dpt",
+        function()
+          require("dap-python").test_method()
+        end,
+        desc = "debug current test of python",
+      },
+    },
     dependencies = {
       "mfussenegger/nvim-dap",
     },
@@ -250,8 +305,64 @@ local plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    version = false, -- telescope did only one release, so use HEAD for now
+    -- disable all default telescope mappings
+    init = function() end,
+    keys = {
+
+      { "<leader>ff", "<cmd> Telescope find_files <CR>", desc = "Find files" },
+      { "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", desc = "Find all" },
+      { "<leader>fw", "<cmd> Telescope live_grep <CR>", desc = "Live grep" },
+      { "<leader>fb", "<cmd> Telescope buffers <CR>", desc = "Find buffers" },
+      { "<leader>fh", "<cmd> Telescope help_tags <CR>", desc = "Help page" },
+      { "<leader>fo", "<cmd> Telescope oldfiles <CR>", desc = "Find oldfiles" },
+      { "<leader>fz", "<cmd> Telescope current_buffer_fuzzy_find <CR>", desc = "Find in current buffer" },
+
+      -- git
+      { "<leader>cm", "<cmd> Telescope git_commits <CR>", desc = "Git commits" },
+      { "<leader>gt", "<cmd> Telescope git_status <CR>", desc = "Git status" },
+
+      -- pick a hidden term
+      { "<leader>pt", "<cmd> Telescope terms <CR>", desc = "Pick hidden term" },
+
+      -- theme switcher
+      { "<leader>th", "<cmd> Telescope themes <CR>", desc = "Nvchad themes" },
+
+      { "<leader>ma", "<cmd> Telescope marks <CR>", desc = "telescope bookmarks" },
+      {
+        "<leader>fa",
+        function()
+          require("telescope.builtin").find_files {
+            previewer = false,
+            follow = false,
+            hidden = true,
+            no_ignore = true,
+            no_ignore_parent = true,
+          }
+        end,
+        desc = "find all",
+      },
+      {
+        "<leader>gB",
+        function()
+          require("telescope.builtin").git_branches {}
+        end,
+        desc = "find branches",
+      },
+      {
+        "<leader>ge",
+        function()
+          require("telescope").extensions.git_worktree.git_worktrees()
+        end,
+        desc = "switch git worktree",
+      },
+      {
+        "<leader>gce",
+        function()
+          require("telescope").extensions.git_worktree.create_git_worktree()
+        end,
+        desc = "create git worktree",
+      },
     },
     opts = overrides.telescope,
   },
@@ -286,11 +397,23 @@ local plugins = {
   -- better marks per project
   {
     "ThePrimeagen/harpoon",
-    init = function()
-      require("core.utils").load_mappings "harpoon"
-    end,
     dependencies = "nvim-lua/plenary.nvim",
-    event = { "BufRead", "BufNewFile" },
+    keys = {
+      {
+        "<c-p>",
+        function()
+          require("harpoon.ui").toggle_quick_menu()
+        end,
+        desc = "toggle harpoon quick menu",
+      },
+      {
+        "<c-b>",
+        function()
+          require("harpoon.mark").add_file()
+        end,
+        desc = "add current file to harpoon",
+      },
+    },
     config = function()
       require("harpoon").setup {
         menu = {
@@ -339,10 +462,56 @@ local plugins = {
   },
   {
     "alexghergh/nvim-tmux-navigation",
-    init = function()
-      require("core.utils").load_mappings "navigation"
-    end,
-    event = { "BufEnter" },
+    keys = {
+      {
+        "<C-h>",
+        function()
+          require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
+        end,
+        desc = "navigate left",
+        mode = { "i", "n" },
+      },
+      {
+        "<C-j>",
+        function()
+          require("nvim-tmux-navigation").NvimTmuxNavigateDown()
+        end,
+        desc = "navigate down",
+        mode = { "i", "n" },
+      },
+      {
+        "<C-k>",
+        function()
+          require("nvim-tmux-navigation").NvimTmuxNavigateUp()
+        end,
+        desc = "navigate up",
+        mode = { "i", "n" },
+      },
+      {
+        "<C-l>",
+        function()
+          require("nvim-tmux-navigation").NvimTmuxNavigateRight()
+        end,
+        desc = "navigate right",
+        mode = { "i", "n" },
+      },
+      {
+        "<C-\\>",
+        function()
+          require("nvim-tmux-navigation").NvimTmuxNavigateLastActive()
+        end,
+        desc = "navigate last active",
+        mode = { "i", "n" },
+      },
+      {
+        "<C-Space>",
+        function()
+          require("nvim-tmux-navigation").NvimTmuxNavigateNext()
+        end,
+        desc = "navigate next",
+        mode = { "i", "n" },
+      },
+    },
     config = function()
       local nvim_tmux_nav = require "nvim-tmux-navigation"
 
@@ -355,11 +524,10 @@ local plugins = {
   -- Search && replace tool in global scope
   {
     "dyng/ctrlsf.vim",
-    init = function()
-      require("core.utils").load_mappings "ctrlsf"
-    end,
     cmd = { "CtrlSF" },
-    keys = { [[<leader>rw]] },
+    keys = {
+      { "<leader>ws", ":CtrlSF <C-R><C-W><CR>", desc = "search current work under cursor" },
+    },
     config = function()
       vim.g["ctrlsf_auto_focus"] = { at = "start" }
       vim.g["ctrlsf_position"] = "right"
@@ -369,10 +537,16 @@ local plugins = {
   -- yank through ssh
   {
     "ojroques/nvim-osc52",
-    init = function()
-      require("core.utils").load_mappings "osc52"
-    end,
-    event = "BufRead",
+    keys = {
+      {
+        "<leader>c",
+        function()
+          require("osc52").copy_visual()
+        end,
+        desc = "copy select section",
+        mode = "x",
+      },
+    },
   },
 
   -- generate shareable file link of git repo
@@ -401,10 +575,36 @@ local plugins = {
   -- lsp preview
   {
     "rmagatti/goto-preview",
-    init = function()
-      require("core.utils").load_mappings "gotopreview"
-    end,
-    event = "BufRead",
+    keys = {
+      {
+        "gpd",
+        function()
+          require("goto-preview").goto_preview_definition()
+        end,
+        desc = "preview definition in float window",
+      },
+      {
+        "gpi",
+        function()
+          require("goto-preview").goto_preview_implementation()
+        end,
+        desc = "preview implementation in float window",
+      },
+      {
+        "gpr",
+        function()
+          require("goto-preview").goto_preview_references()
+        end,
+        desc = "preview references in float window",
+      },
+      {
+        "gP",
+        function()
+          require("goto-preview").close_all_win()
+        end,
+        desc = "close all preview windows",
+      },
+    },
     config = true,
   },
 
@@ -431,25 +631,10 @@ local plugins = {
   { import = "custom.configs.ufo" },
 
   {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    init = function()
-      require("core.utils").load_mappings "flash"
-    end,
-    opts = {
-      modes = {
-        search = {
-          enabled = false, -- avoid flash auto exiting search when the next charactoer is a jump label
-        },
-      },
-    },
-  },
-
-  {
     -- "ThePrimeagen/git-worktree.nvim",
     "brandoncc/git-worktree.nvim", -- use forked version to fix telescope related error
     branch = "catch-and-handle-telescope-related-error",
-    event = "VeryLazy",
+    keys = { "<leader>ge", "<leader>gce" },
     config = function()
       local Worktree = require "git-worktree"
 

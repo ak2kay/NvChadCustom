@@ -29,10 +29,46 @@ end
 return {
   {
     "kevinhwang91/nvim-ufo",
-    init = function()
-      require("core.utils").load_mappings "ufo"
-    end,
-    event = { "BufRead", "BufNewFile" },
+    keys = {
+      {
+        "zR",
+        function()
+          require("ufo").openAllFolds()
+        end,
+        desc = "open all folds",
+      },
+      {
+        "zM",
+        function()
+          require("ufo").closeAllFolds()
+        end,
+        desc = "close all folds",
+      },
+      {
+        "zr",
+        function()
+          require("ufo").openFoldsExceptKinds()
+        end,
+        desc = "open more folds",
+      },
+      {
+        "zm",
+        function()
+          require("ufo").closeFoldsWith()
+        end,
+        desc = "close more folds",
+      },
+      {
+        "K",
+        function()
+          local winid = require("ufo").peekFoldedLinesUnderCursor()
+          if not winid then
+            vim.lsp.buf.hover()
+          end
+        end,
+        desc = "peek folds",
+      },
+    },
     dependencies = {
       "kevinhwang91/promise-async",
       "nvim-treesitter/nvim-treesitter",
