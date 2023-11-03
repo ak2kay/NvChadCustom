@@ -83,6 +83,7 @@ local plugins = {
   -- lsp
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       {
         "SmiteshP/nvim-navbuddy",
@@ -151,7 +152,7 @@ local plugins = {
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufRead" },
+    event = { "BufRead", "BufNewFile" },
     config = function()
       require "custom.configs.null-ls"
     end,
@@ -247,6 +248,7 @@ local plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     opts = overrides.indentblankline,
   },
 
@@ -313,7 +315,7 @@ local plugins = {
   {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = "nvim-lua/plenary.nvim",
     config = true,
     -- stylua: ignore
@@ -575,6 +577,10 @@ local plugins = {
       scope = "line",
       toggle_event = { "InsertEnter" },
     },
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufNewFile", "BufReadPre" },
   },
 }
 
