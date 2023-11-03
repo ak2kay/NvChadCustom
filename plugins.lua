@@ -552,7 +552,7 @@ local plugins = {
   -- generate shareable file link of git repo
   {
     "ruifm/gitlinker.nvim",
-    keys = { [[<leader>gy]] }, -- this is the built-in keymap
+    keys = { { "<leader>gy", desc = "copy remote git link of current line or select" } }, -- this is the built-in keymap
     dependencies = { "ojroques/vim-oscyank", "nvim-lua/plenary.nvim" },
     config = function()
       require("gitlinker").setup {
