@@ -169,17 +169,9 @@ local plugins = {
     "github/copilot.vim",
     event = { "BufRead", "BufNewFile" },
     cmd = { "Copilot" },
+    -- stylua: ignore
     keys = {
-      {
-        "<c-y>",
-        'copilot#Accept("<CR>")',
-        desc = "accept copilot suggestion",
-        expr = true,
-        silent = true,
-        script = true,
-        replace_keycodes = false,
-        mode = "i",
-      },
+      { "<c-y>", 'copilot#Accept("<CR>")', desc = "accept copilot suggestion", expr = true, silent = true, script = true, replace_keycodes = false, mode = "i" },
     },
     config = function()
       local g = vim.g
@@ -208,35 +200,12 @@ local plugins = {
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>dd",
-        function()
-          require("dap").continue()
-        end,
-        desc = "start debugging",
-      },
-      {
-        "<leader>db",
-        function()
-          require("dap").toggle_breakpoint()
-        end,
-        desc = "toggle breakpoint",
-      },
-      {
-        "<leader>dso",
-        function()
-          require("dap").step_over()
-        end,
-        desc = "step over",
-      },
-      {
-        "<leader>dsi",
-        function()
-          require("dap").step_into()
-        end,
-        desc = "step into",
-      },
+      { "<leader>dd", function() require("dap").continue() end, desc = "start debugging" },
+      { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "toggle breakpoint" },
+      { "<leader>dso", function() require("dap").step_over() end, desc = "step over" },
+      { "<leader>dsi", function() require("dap").step_into() end, desc = "step into" },
     },
     config = function()
       require("custom.configs.dap").setup()
@@ -245,22 +214,10 @@ local plugins = {
   {
     "leoluz/nvim-dap-go",
     ft = { "go" },
+    -- stylua: ignore
     keys = {
-
-      {
-        "<leader>dgt",
-        function()
-          require("dap-go").debug_test()
-        end,
-        desc = "debug current test of golang",
-      },
-      {
-        "<leader>dglt",
-        function()
-          require("dap-go").debug_last_test()
-        end,
-        desc = "debug last test debuged of golang",
-      },
+      { "<leader>dgt", function() require("dap-go").debug_test() end, desc = "debug current test of golang" },
+      { "<leader>dglt", function() require("dap-go").debug_last_test() end, desc = "debug last test debuged of golang" },
     },
     dependencies = {
       "mfussenegger/nvim-dap",
@@ -270,14 +227,9 @@ local plugins = {
   {
     "mfussenegger/nvim-dap-python",
     ft = { "python" },
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>dpt",
-        function()
-          require("dap-python").test_method()
-        end,
-        desc = "debug current test of python",
-      },
+      { "<leader>dpt", function() require("dap-python").test_method() end, desc = "debug current test of python" },
     },
     dependencies = {
       "mfussenegger/nvim-dap",
@@ -308,26 +260,22 @@ local plugins = {
     version = false, -- telescope did only one release, so use HEAD for now
     -- disable all default telescope mappings
     init = function() end,
+    -- stylua: ignore
     keys = {
-
       { "<leader>ff", "<cmd> Telescope find_files <CR>", desc = "Find files" },
       { "<leader>fa", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", desc = "Find all" },
-      { "<leader>fw", "<cmd> Telescope live_grep <CR>", desc = "Live grep" },
+      { "<leader>/", "<cmd> Telescope live_grep <CR>", desc = "Live grep" },
       { "<leader>fb", "<cmd> Telescope buffers <CR>", desc = "Find buffers" },
       { "<leader>fh", "<cmd> Telescope help_tags <CR>", desc = "Help page" },
       { "<leader>fo", "<cmd> Telescope oldfiles <CR>", desc = "Find oldfiles" },
       { "<leader>fz", "<cmd> Telescope current_buffer_fuzzy_find <CR>", desc = "Find in current buffer" },
-
       -- git
       { "<leader>cm", "<cmd> Telescope git_commits <CR>", desc = "Git commits" },
       { "<leader>gt", "<cmd> Telescope git_status <CR>", desc = "Git status" },
-
       -- pick a hidden term
       { "<leader>pt", "<cmd> Telescope terms <CR>", desc = "Pick hidden term" },
-
       -- theme switcher
       { "<leader>th", "<cmd> Telescope themes <CR>", desc = "Nvchad themes" },
-
       { "<leader>ma", "<cmd> Telescope marks <CR>", desc = "telescope bookmarks" },
       {
         "<leader>fa",
@@ -342,27 +290,9 @@ local plugins = {
         end,
         desc = "find all",
       },
-      {
-        "<leader>gB",
-        function()
-          require("telescope.builtin").git_branches {}
-        end,
-        desc = "find branches",
-      },
-      {
-        "<leader>ge",
-        function()
-          require("telescope").extensions.git_worktree.git_worktrees()
-        end,
-        desc = "switch git worktree",
-      },
-      {
-        "<leader>gce",
-        function()
-          require("telescope").extensions.git_worktree.create_git_worktree()
-        end,
-        desc = "create git worktree",
-      },
+      { "<leader>gB", function() require("telescope.builtin").git_branches {} end, desc = "find branches" },
+      { "<leader>ge", function() require("telescope").extensions.git_worktree.git_worktrees() end, desc = "switch git worktree" },
+      { "<leader>gce", function() require("telescope").extensions.git_worktree.create_git_worktree() end, desc = "create git worktree" },
     },
     opts = overrides.telescope,
   },
@@ -398,21 +328,10 @@ local plugins = {
   {
     "ThePrimeagen/harpoon",
     dependencies = "nvim-lua/plenary.nvim",
+    -- stylua: ignore
     keys = {
-      {
-        "<c-p>",
-        function()
-          require("harpoon.ui").toggle_quick_menu()
-        end,
-        desc = "toggle harpoon quick menu",
-      },
-      {
-        "<c-b>",
-        function()
-          require("harpoon.mark").add_file()
-        end,
-        desc = "add current file to harpoon",
-      },
+      { "<c-p>", function() require("harpoon.ui").toggle_quick_menu() end, desc = "toggle harpoon quick menu" },
+      { "<c-b>", function() require("harpoon.mark").add_file() end, desc = "add current file to harpoon" },
     },
     config = function()
       require("harpoon").setup {
@@ -462,55 +381,14 @@ local plugins = {
   },
   {
     "alexghergh/nvim-tmux-navigation",
+    -- stylua: ignore
     keys = {
-      {
-        "<C-h>",
-        function()
-          require("nvim-tmux-navigation").NvimTmuxNavigateLeft()
-        end,
-        desc = "navigate left",
-        mode = { "i", "n" },
-      },
-      {
-        "<C-j>",
-        function()
-          require("nvim-tmux-navigation").NvimTmuxNavigateDown()
-        end,
-        desc = "navigate down",
-        mode = { "i", "n" },
-      },
-      {
-        "<C-k>",
-        function()
-          require("nvim-tmux-navigation").NvimTmuxNavigateUp()
-        end,
-        desc = "navigate up",
-        mode = { "i", "n" },
-      },
-      {
-        "<C-l>",
-        function()
-          require("nvim-tmux-navigation").NvimTmuxNavigateRight()
-        end,
-        desc = "navigate right",
-        mode = { "i", "n" },
-      },
-      {
-        "<C-\\>",
-        function()
-          require("nvim-tmux-navigation").NvimTmuxNavigateLastActive()
-        end,
-        desc = "navigate last active",
-        mode = { "i", "n" },
-      },
-      {
-        "<C-Space>",
-        function()
-          require("nvim-tmux-navigation").NvimTmuxNavigateNext()
-        end,
-        desc = "navigate next",
-        mode = { "i", "n" },
-      },
+      { "<C-h>", function() require("nvim-tmux-navigation").NvimTmuxNavigateLeft() end, desc = "navigate left", mode = { "i", "n" } },
+      { "<C-j>", function() require("nvim-tmux-navigation").NvimTmuxNavigateDown() end, desc = "navigate down", mode = { "i", "n" } },
+      { "<C-k>", function() require("nvim-tmux-navigation").NvimTmuxNavigateUp() end, desc = "navigate up", mode = { "i", "n" } },
+      { "<C-l>", function() require("nvim-tmux-navigation").NvimTmuxNavigateRight() end, desc = "navigate right", mode = { "i", "n" } },
+      { "<C-\\>", function() require("nvim-tmux-navigation").NvimTmuxNavigateLastActive() end, desc = "navigate last active", mode = { "i", "n" } },
+      { "<C-Space>", function() require("nvim-tmux-navigation").NvimTmuxNavigateNext() end, desc = "navigate next", mode = { "i", "n" } },
     },
     config = function()
       local nvim_tmux_nav = require "nvim-tmux-navigation"
@@ -537,15 +415,9 @@ local plugins = {
   -- yank through ssh
   {
     "ojroques/nvim-osc52",
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>c",
-        function()
-          require("osc52").copy_visual()
-        end,
-        desc = "copy select section",
-        mode = "x",
-      },
+      { "<leader>c", function() require("osc52").copy_visual() end, desc = "copy select section", mode = "x" },
     },
   },
 
@@ -575,35 +447,12 @@ local plugins = {
   -- lsp preview
   {
     "rmagatti/goto-preview",
+    -- stylua: ignore
     keys = {
-      {
-        "gpd",
-        function()
-          require("goto-preview").goto_preview_definition()
-        end,
-        desc = "preview definition in float window",
-      },
-      {
-        "gpi",
-        function()
-          require("goto-preview").goto_preview_implementation()
-        end,
-        desc = "preview implementation in float window",
-      },
-      {
-        "gpr",
-        function()
-          require("goto-preview").goto_preview_references()
-        end,
-        desc = "preview references in float window",
-      },
-      {
-        "gP",
-        function()
-          require("goto-preview").close_all_win()
-        end,
-        desc = "close all preview windows",
-      },
+      { "gpd", function() require("goto-preview").goto_preview_definition() end, desc = "preview definition in float window" },
+      { "gpi", function() require("goto-preview").goto_preview_implementation() end, desc = "preview implementation in float window" },
+      { "gpr", function() require("goto-preview").goto_preview_references() end, desc = "preview references in float window" },
+      { "gP", function() require("goto-preview").close_all_win() end, desc = "close all preview windows" },
     },
     config = true,
   },

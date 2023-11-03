@@ -100,7 +100,7 @@ M.telescope = {
 }
 
 M.indentblankline = {
-  buftype_exclude = { "terminal", "nofile" },
+  buftype_exclude = { "terminal", "nofile", "help", "dashboard", "alpha", "Trouble", "lazy" },
   show_trailing_blankline_indent = true,
 }
 
